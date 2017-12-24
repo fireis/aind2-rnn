@@ -13,12 +13,13 @@ def window_transform_series(series, window_size):
     X = []
     y = []
     index = 0
+    step_size = 1
 
 
     while (index < (len(series) - window_size )) :
         X.append(series[index:(index+window_size)])
         y.append(series[index+window_size])
-        index += window_size
+        index += step_size
     # reshape each
     X = np.asarray(X)
     X.shape = (np.shape(X)[0:2])
@@ -45,9 +46,8 @@ def build_part1_RNN(window_size):
 ### TODO: return the text input with only ascii lowercase and the punctuation given below included.
 def cleaned_text(text):
     #Use regex to remove punctuation
-    regex = re.compile('[^a-zA-Z ]')
+    regex = re.compile('[^a-zA-Z!,.:;? ]')
     return regex.sub('', text)
-
 
 ### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model
 def window_transform_text(text, window_size, step_size):
